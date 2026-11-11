@@ -1,0 +1,15 @@
+{
+  "name": "alert-correlations-hybride",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MVP de corrélation hybride d'alertes de cybersécurité",
+  "type": "module",
+  "scripts": {
+    "demo": "node src/cli.js --input data/demo-alerts.json --output output/demo-report.json",
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

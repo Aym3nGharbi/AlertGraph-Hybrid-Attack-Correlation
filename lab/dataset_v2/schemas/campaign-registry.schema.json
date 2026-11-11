@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://alertgraph.local/schemas/v2/campaign-registry.schema.json",
+  "title": "AlertGraph Wazuh V2 campaign registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "dataset_version", "frozen_at_utc", "campaigns"],
+  "properties": {
+    "schema_version": {"const": "alertgraph-campaign-registry/2.0"},
+    "dataset_version": {"type": "string", "minLength": 1},
+    "frozen_at_utc": {"type": "string", "format": "date-time"},
+    "campaigns": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["campaign_id", "partition", "scenario_template", "parameter_seed", "status"],
+        "properties": {
+          "campaign_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]+$"},
+          "partition": {"enum": ["development", "validation", "final-test"]},
+          "scenario_template": {"type": "string", "minLength": 1},
+          "parameter_seed": {"type": "integer", "minimum": 0},
+          "status": {"enum": ["planned", "running", "completed", "failed", "invalidated", "frozen"]}
+        }
+      }
+    }
+  }
+}

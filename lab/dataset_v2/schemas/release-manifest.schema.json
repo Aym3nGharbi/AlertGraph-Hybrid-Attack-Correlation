@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://alertgraph.local/schemas/v2/release-manifest.schema.json",
+  "title": "AlertGraph Wazuh V2 release manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "dataset_version", "release_id", "created_at_utc", "frozen_at_utc", "campaign_ids", "partition_counts", "files", "training_ready"],
+  "properties": {
+    "schema_version": {"const": "alertgraph-release-manifest/2.0"},
+    "dataset_version": {"type": "string", "minLength": 1},
+    "release_id": {"type": "string", "minLength": 1},
+    "campaign_id": {"type": ["string", "null"]},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "frozen_at_utc": {"type": "string", "format": "date-time"},
+    "campaign_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "partition_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["development", "validation", "final-test"],
+      "properties": {
+        "development": {"type": "integer", "minimum": 0},
+        "validation": {"type": "integer", "minimum": 0},
+        "final-test": {"type": "integer", "minimum": 0}
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["role", "path", "sha256", "bytes"],
+        "properties": {
+          "role": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "bytes": {"type": "integer", "minimum": 0}
+        }
+      }
+    },
+    "training_ready": {"const": false},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

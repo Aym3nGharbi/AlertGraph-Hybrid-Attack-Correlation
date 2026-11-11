@@ -1,0 +1,7 @@
+joblib
+leidenalg
+numpy
+pandas
+pyarrow
+python-igraph
+scikit-learn

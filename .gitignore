@@ -1,0 +1,85 @@
+# Dependencies and virtual environments
+node_modules/
+.venv/
+venv/
+env/
+
+# Python / Node caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+npm-debug.log*
+
+# Secrets and local credentials
+.env
+.env.*
+!.env.example
+.secrets/
+credentials/
+*.credential.xml
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+*.pfx
+*.p12
+
+# Runtime outputs, real Wazuh events and experimental evidence
+output/
+lab/runs/
+lab/scenarios/
+lab/alertgraph-windows-bootstrap.zip
+lab/windows/*.cer
+*.log
+
+# Local datasets and generated ML artefacts
+data/external/
+data/processed/
+data/models/
+models/
+checkpoints/
+*.parquet
+*.feather
+*.joblib
+*.pkl
+*.pickle
+*.onnx
+*.npz
+*.npy
+
+# Packet captures, raw dumps, installers and downloaded archives
+*.pcap
+*.pcapng
+*.dump
+*.dump.gz
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.msi
+*.exe
+
+# Operational handoffs and lab-specific evidence reports
+docs/session-handoff-*.md
+docs/wazuh-lab-validation.md
+docs/a1-*-result.md
+docs/a1-complete-campaign-result.md
+docs/first-strictly-supervised-attack-campaign-v2.md
+docs/persistent-controller-socket-capture-validation-v2.md
+
+# Local academic presentation working files
+build-presentation.ps1
+projet
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Preserve intentional empty directories
+!.gitkeep
+

@@ -1,0 +1,55 @@
+{
+  "scenario_template": "dry-run-linux-windows",
+  "temporal_policy": {
+    "max_abs_offset_ms": 1000.0,
+    "max_uncertainty_ms": 500.0,
+    "require_synchronized": true,
+    "required_roles": ["controller", "wazuh-manager", "linux-target", "windows-target"]
+  },
+  "machines": [
+    {
+      "role": "controller",
+      "host": "synthetic-controller",
+      "agent_name": null
+    },
+    {
+      "role": "wazuh-manager",
+      "host": "synthetic-wazuh-manager",
+      "agent_name": null
+    },
+    {
+      "role": "linux-target",
+      "host": "synthetic-linux",
+      "agent_name": "synthetic-linux-agent"
+    },
+    {
+      "role": "windows-target",
+      "host": "synthetic-windows",
+      "agent_name": "synthetic-windows-agent"
+    }
+  ],
+  "activities": [
+    {
+      "key": "linux-canary-create",
+      "class": "attack",
+      "attack_instance_key": "alpha",
+      "activity_name": "canary-create",
+      "true_activity_phase": "execution",
+      "platform": "linux",
+      "target_agents": ["synthetic-linux-agent"],
+      "target_hosts": ["synthetic-linux"],
+      "command_template": "create controlled Linux canary {marker_id}"
+    },
+    {
+      "key": "windows-system-query",
+      "class": "benign",
+      "benign_activity_key": "normal-query",
+      "activity_name": "normal-system-query",
+      "true_activity_phase": null,
+      "platform": "windows",
+      "target_agents": ["synthetic-windows-agent"],
+      "target_hosts": ["synthetic-windows"],
+      "command_template": "run harmless Windows query {marker_id}"
+    }
+  ]
+}

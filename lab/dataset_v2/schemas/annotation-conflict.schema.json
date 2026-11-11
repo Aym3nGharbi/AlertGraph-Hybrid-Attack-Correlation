@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://alertgraph.local/schemas/v2/annotation-conflict.schema.json",
+  "title": "AlertGraph Wazuh V2 annotation conflict",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "conflict_id", "annotation_id", "wazuh_alert_id", "created_at_utc", "status", "claims"],
+  "properties": {
+    "schema_version": {"const": "alertgraph-annotation-conflict/2.0"},
+    "conflict_id": {"type": "string", "minLength": 1},
+    "annotation_id": {"type": "string", "minLength": 1},
+    "wazuh_alert_id": {"type": "string", "minLength": 1},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "status": {"enum": ["unresolved", "resolved"]},
+    "claims": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "class", "evidence_ids"],
+        "properties": {
+          "source": {"type": "string", "minLength": 1},
+          "class": {"enum": ["attack", "benign", "unknown"]},
+          "attack_instance_id": {"type": ["string", "null"]},
+          "benign_activity_id": {"type": ["string", "null"]},
+          "activity_id": {"type": ["string", "null"]},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "resolution_revision_id": {"type": ["string", "null"]},
+    "resolved_at_utc": {"type": ["string", "null"], "format": "date-time"},
+    "reviewer_id": {"type": ["string", "null"]}
+  }
+}

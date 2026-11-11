@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://alertgraph.local/schemas/v2/evidence.schema.json",
+  "title": "AlertGraph Wazuh V2 execution evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "evidence_id", "campaign_id", "run_id", "activity_id", "kind", "recorded_at_utc", "source", "observed_in_alert_ids"],
+  "properties": {
+    "schema_version": {"const": "alertgraph-evidence/2.0"},
+    "evidence_id": {"type": "string", "minLength": 1},
+    "campaign_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "activity_id": {"type": "string", "minLength": 1},
+    "kind": {"enum": ["unique-marker", "process-guid", "artifact-identity", "command-hash", "wazuh-rule-semantic", "process-lineage", "file-telemetry", "network-telemetry", "authentication-telemetry", "time-window", "host-match", "agent-match", "execution-receipt"]},
+    "recorded_at_utc": {"type": "string", "format": "date-time"},
+    "source": {"type": "string", "minLength": 1},
+    "payload_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "observed_in_alert_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+  }
+}

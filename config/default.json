@@ -1,0 +1,5 @@
+{
+  "alpha": 0.65,
+  "correlationThreshold": 0.52,
+  "maxTimeDifferenceMinutes": 45
+}

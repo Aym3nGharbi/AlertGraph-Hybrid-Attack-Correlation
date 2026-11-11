@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "status": "development-selected-not-finally-validated",
+  "episode_gap_seconds": 15,
+  "selection_source": [
+    "dev-linux-auth-fim-20261101-001",
+    "dev-linux-two-attacks-20261101-001",
+    "dev-linux-distinct-attacks-20261101-001"
+  ],
+  "cross_episode_policy": "hard boundary; no edge may cross an inactivity episode",
+  "final_test_tuning_allowed": false
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://alertgraph.local/schemas/v2/collection-manifest.schema.json",
+  "title": "AlertGraph Wazuh V2 collection manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "campaign_id", "run_id", "created_at_utc", "since_utc", "until_utc", "source", "agent_filter", "lines_read", "alerts_written", "malformed_lines", "files"],
+  "properties": {
+    "schema_version": {"const": "alertgraph-collection-manifest/2.0"},
+    "campaign_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "since_utc": {"type": "string", "format": "date-time"},
+    "until_utc": {"type": "string", "format": "date-time"},
+    "source": {"type": "string", "minLength": 1},
+    "agent_filter": {"type": "array", "items": {"type": "string"}},
+    "lines_read": {"type": "integer", "minimum": 0},
+    "alerts_written": {"type": "integer", "minimum": 0},
+    "malformed_lines": {"type": "integer", "minimum": 0},
+    "files": {"$ref": "#/$defs/files"}
+  },
+  "$defs": {
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["role", "path", "sha256", "bytes"],
+        "properties": {
+          "role": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "bytes": {"type": "integer", "minimum": 0}
+        }
+      }
+    }
+  }
+}

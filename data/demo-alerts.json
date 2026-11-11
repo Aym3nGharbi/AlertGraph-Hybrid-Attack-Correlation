@@ -1,0 +1,38 @@
+[
+  {
+    "id": "suri-001", "timestamp": "2026-10-30T18:00:00Z", "source": "suricata",
+    "src_ip": "10.10.0.50", "dest_ip": "10.10.0.10", "service": "http",
+    "event_type": "Web scan detected", "description": "Multiple paths enumerated on web server",
+    "phase": "reconnaissance", "severity": 5, "attack_id": "scenario-web"
+  },
+  {
+    "id": "suri-002", "timestamp": "2026-10-30T18:04:00Z", "source": "suricata",
+    "src_ip": "10.10.0.50", "dest_ip": "10.10.0.10", "service": "http",
+    "event_type": "SQL injection attempt", "description": "Suspicious SQL payload sent to web server",
+    "phase": "initial-access", "severity": 9, "attack_id": "scenario-web"
+  },
+  {
+    "id": "wazuh-003", "timestamp": "2026-10-30T18:07:00Z", "source": "wazuh",
+    "src_ip": "10.10.0.50", "dest_ip": "10.10.0.10", "host": "web-01",
+    "event_type": "Web shell command", "description": "Suspicious command executed by web service account",
+    "phase": "execution", "severity": 12, "attack_id": "scenario-web"
+  },
+  {
+    "id": "wazuh-004", "timestamp": "2026-10-30T18:13:00Z", "source": "wazuh",
+    "src_ip": "10.10.0.10", "dest_ip": "198.51.100.20", "host": "web-01",
+    "event_type": "Archive uploaded", "description": "Sensitive archive transferred to external host",
+    "phase": "exfiltration", "severity": 13, "attack_id": "scenario-web"
+  },
+  {
+    "id": "wazuh-101", "timestamp": "2026-10-30T20:00:00Z", "source": "wazuh",
+    "src_ip": "10.10.0.77", "dest_ip": "10.10.0.30", "host": "auth-01",
+    "event_type": "Repeated authentication failures", "description": "Many failed SSH logins",
+    "phase": "initial-access", "severity": 7, "attack_id": "scenario-ssh"
+  },
+  {
+    "id": "wazuh-102", "timestamp": "2026-10-30T20:05:00Z", "source": "wazuh",
+    "src_ip": "10.10.0.77", "dest_ip": "10.10.0.30", "host": "auth-01",
+    "event_type": "Successful SSH login", "description": "Login after repeated authentication failures",
+    "phase": "initial-access", "severity": 10, "attack_id": "scenario-ssh"
+  }
+]

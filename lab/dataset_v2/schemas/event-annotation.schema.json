@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://alertgraph.local/schemas/v2/event-annotation.schema.json",
+  "title": "AlertGraph Wazuh V2 event annotation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "annotation_id", "wazuh_alert_id", "class", "confidence", "annotation_source", "evidence_ids", "review_status", "label_conflict", "created_at_utc", "revision"],
+  "properties": {
+    "schema_version": {"const": "alertgraph-event-annotation/2.0"},
+    "annotation_id": {"type": "string", "minLength": 1},
+    "wazuh_alert_id": {"type": "string", "minLength": 1},
+    "class": {"enum": ["attack", "benign", "unknown"]},
+    "attack_instance_id": {"type": ["string", "null"]},
+    "benign_activity_id": {"type": ["string", "null"]},
+    "activity_id": {"type": ["string", "null"]},
+    "true_activity_phase": {"type": ["string", "null"]},
+    "confidence": {"enum": ["verified", "weak", "unknown", "conflict"]},
+    "annotation_source": {"type": "string", "minLength": 1},
+    "evidence_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "review_status": {"enum": ["unreviewed", "accepted", "rejected"]},
+    "reviewer_id": {"type": ["string", "null"]},
+    "reviewed_at_utc": {"type": ["string", "null"], "format": "date-time"},
+    "label_conflict": {"type": "boolean"},
+    "conflict_id": {"type": ["string", "null"]},
+    "conflict_reasons": {"type": "array", "items": {"type": "string"}},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "revision": {"type": "integer", "minimum": 1}
+  }
+}

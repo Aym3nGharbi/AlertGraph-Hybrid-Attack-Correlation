@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://alertgraph.local/schemas/v2/verified-pair-label.schema.json",
+  "title": "AlertGraph V2 strictly verified pair label",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "earlier_meta_id", "later_meta_id", "target", "label_reason", "confidence"],
+  "properties": {
+    "schema_version": {"const": "alertgraph-verified-pair-label/2.0"},
+    "earlier_meta_id": {"type": "string", "minLength": 1},
+    "later_meta_id": {"type": "string", "minLength": 1},
+    "target": {"enum": [0, 1]},
+    "label_reason": {"enum": ["same-verified-attack-instance", "different-verified-attack-instances", "verified-attack-versus-benign"]},
+    "confidence": {"const": "verified"}
+  }
+}

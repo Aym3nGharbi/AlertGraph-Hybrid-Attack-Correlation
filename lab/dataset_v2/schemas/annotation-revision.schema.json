@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://alertgraph.local/schemas/v2/annotation-revision.schema.json",
+  "title": "AlertGraph Wazuh V2 annotation revision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "revision_id", "annotation_id", "revision", "previous_revision_id", "created_at_utc", "reviewer_id", "reason", "changes"],
+  "properties": {
+    "schema_version": {"const": "alertgraph-annotation-revision/2.0"},
+    "revision_id": {"type": "string", "minLength": 1},
+    "annotation_id": {"type": "string", "minLength": 1},
+    "revision": {"type": "integer", "minimum": 2},
+    "previous_revision_id": {"type": ["string", "null"]},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "reviewer_id": {"type": "string", "minLength": 1},
+    "reason": {"type": "string", "minLength": 1},
+    "changes": {"type": "object", "minProperties": 1}
+  }
+}

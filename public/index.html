@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AlertGraph</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <div class="brand"><span class="brand-mark"></span><div><span class="eyebrow">CORRÉLATION HYBRIDE</span><h1>AlertGraph</h1></div></div>
+  </header>
+  <main>
+    <section class="controls"><label>Scénario<select id="run"></select></label><span id="status" class="status">Chargement…</span></section>
+    <section id="summary" class="summary"></section>
+    <section class="workspace">
+      <aside class="incident-pane"><div class="section-heading"><div><span class="eyebrow">RÉSULTATS PRÉDITS</span><h2>Attaques probables</h2></div><span id="incident-count" class="muted"></span></div><div id="incident-list" class="incident-list"></div></aside>
+      <section id="detail" class="detail-pane"><div class="empty-state"><span class="empty-icon">⌁</span><h2>Sélectionnez une attaque probable</h2><p>Les activités, méta-alertes et événements Wazuh apparaîtront ici à la demande.</p></div></section>
+    </section>
+    <div class="compact-legend"><span><i class="dot observed"></i>événement observé</span><span><i class="dot inferred"></i>catégorie inférée</span><span><i class="dot relation"></i>relation prédite</span></div>
+  </main>
+  <dialog id="raw-dialog"><form method="dialog"><button class="dialog-close" aria-label="Fermer">×</button></form><div id="raw-summary"></div><div class="json-heading"><h3>Événement JSON original</h3><button id="copy-json" type="button">Copier</button></div><pre id="raw-json"></pre></dialog>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

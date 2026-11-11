@@ -1,0 +1,30 @@
+{
+  "controller": {
+    "request_started_at_utc": "2026-11-10T09:00:00.000+00:00",
+    "request_ended_at_utc": "2026-11-10T09:00:00.100+00:00",
+    "remote_time_utc": "2026-11-10T09:00:00.060+00:00",
+    "synchronized": true,
+    "sync_source": "synthetic-controller"
+  },
+  "wazuh-manager": {
+    "request_started_at_utc": "2026-11-10T09:00:00.000+00:00",
+    "request_ended_at_utc": "2026-11-10T09:00:00.100+00:00",
+    "remote_time_utc": "2026-11-10T09:00:00.060+00:00",
+    "synchronized": true,
+    "sync_source": "synthetic-manager"
+  },
+  "linux-target": {
+    "request_started_at_utc": "2026-11-10T09:00:00.000+00:00",
+    "request_ended_at_utc": "2026-11-10T09:00:00.100+00:00",
+    "remote_time_utc": "2026-11-10T09:00:00.060+00:00",
+    "synchronized": true,
+    "sync_source": "synthetic-linux"
+  },
+  "windows-target": {
+    "request_started_at_utc": "2026-11-10T09:00:00.000+00:00",
+    "request_ended_at_utc": "2026-11-10T09:00:00.100+00:00",
+    "remote_time_utc": "2026-11-10T09:00:00.060+00:00",
+    "synchronized": true,
+    "sync_source": "synthetic-windows"
+  }
+}

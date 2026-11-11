@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://alertgraph.local/schemas/v2/campaign-manifest.schema.json",
+  "title": "AlertGraph Wazuh V2 campaign manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "campaign_id", "run_id", "partition", "parameter_seed", "created_at_utc", "status", "machines", "configuration_hashes"],
+  "properties": {
+    "schema_version": {"const": "alertgraph-campaign-manifest/2.0"},
+    "campaign_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "partition": {"enum": ["development", "validation", "final-test"]},
+    "parameter_seed": {"type": "integer", "minimum": 0},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "started_at_utc": {"type": ["string", "null"], "format": "date-time"},
+    "ended_at_utc": {"type": ["string", "null"], "format": "date-time"},
+    "status": {"enum": ["planned", "running", "completed", "failed", "invalidated", "frozen"]},
+    "machines": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["role", "host", "agent_name", "clock_audited_at_utc", "clock_offset_ms"],
+        "properties": {
+          "role": {"enum": ["controller", "wazuh-manager", "linux-target", "windows-target"]},
+          "host": {"type": "string", "minLength": 1},
+          "agent_name": {"type": ["string", "null"]},
+          "clock_audited_at_utc": {"type": ["string", "null"], "format": "date-time"},
+          "clock_offset_ms": {"type": ["number", "null"]}
+        }
+      }
+    },
+    "configuration_hashes": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+    }
+  }
+}

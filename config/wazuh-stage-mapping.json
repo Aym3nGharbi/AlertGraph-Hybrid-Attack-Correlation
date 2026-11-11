@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "policy": "unknown-is-neutral",
+  "technique_to_stage": {
+    "T1046": "SERVICE_DISC",
+    "T1595": "VULN_DISC",
+    "T1110": "BRUTE_FORCE_CREDS",
+    "T1190": "PUBLIC_APP_EXP",
+    "T1210": "REMOTE_SERVICE_EXP",
+    "T1068": "PRIV_ESC",
+    "T1548": "PRIV_ESC",
+    "T1059": "ARBITRARY_CODE_EXE",
+    "T1053": "PERSISTENCE",
+    "T1055": "DEFENSE_EVASION",
+    "T1078": "VALID_ACCOUNT_ACCESS",
+    "T1070": "DEFENSE_EVASION",
+    "T1021": "LATERAL_MOVEMENT",
+    "T1071": "COMMAND_AND_CONTROL",
+    "T1105": "COMMAND_AND_CONTROL",
+    "T1570": "LATERAL_MOVEMENT",
+    "T1041": "DATA_EXFILTRATION",
+    "T1489": "SERVICE_STOP",
+    "T1498": "NETWORK_DOS",
+    "T1499": "END_POINT_DOS"
+  },
+  "rule_to_stage": {},
+  "group_to_stage": {
+    "multiple_authentication_failures": "BRUTE_FORCE_CREDS",
+    "recon": "HOST_DISC"
+  },
+  "precedence": ["rule", "technique", "group"],
+  "notes": [
+    "Only observable Wazuh metadata is used.",
+    "Unknown mappings remain null and never mean causal incompatibility.",
+    "Rule-specific mappings added during development must be frozen before final runs."
+  ]
+}

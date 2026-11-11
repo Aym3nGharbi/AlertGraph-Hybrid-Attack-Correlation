@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://alertgraph.local/schemas/v2/membership-decision.schema.json",
+  "title": "AlertGraph V2 event/activity membership decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "decision_id", "wazuh_alert_id", "decision",
+    "activity_id", "other_activity_id", "evidence_ids", "proof_families",
+    "relation_keys", "reason_codes", "explanation", "ml_use",
+    "created_at_utc"
+  ],
+  "properties": {
+    "schema_version": {"const": "alertgraph-membership-decision/2.0"},
+    "decision_id": {"type": "string", "minLength": 1},
+    "wazuh_alert_id": {"type": "string", "minLength": 1},
+    "decision": {
+      "enum": ["member-verified", "independent-verified", "unresolved"]
+    },
+    "activity_id": {"type": ["string", "null"]},
+    "other_activity_id": {"type": ["string", "null"]},
+    "evidence_ids": {
+      "type": "array", "uniqueItems": true, "items": {"type": "string"}
+    },
+    "proof_families": {
+      "type": "array", "uniqueItems": true,
+      "items": {
+        "enum": [
+          "execution-receipt", "controller-network", "linux-journal",
+          "windows-sysmon", "windows-security", "wazuh-transport"
+        ]
+      }
+    },
+    "relation_keys": {
+      "type": "object",
+      "additionalProperties": {"type": ["string", "integer", "number", "boolean", "null"]}
+    },
+    "reason_codes": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "explanation": {"type": "string", "minLength": 1},
+    "ml_use": {
+      "enum": [
+        "attack-membership-eligible", "verified-benign-negative-only",
+        "verified-independent-negative-only", "excluded-unresolved"
+      ]
+    },
+    "created_at_utc": {"type": "string", "format": "date-time"}
+  }
+}

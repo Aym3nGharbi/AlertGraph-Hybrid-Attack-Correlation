@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://alertgraph.local/schemas/v2/clock-audit.schema.json",
+  "title": "AlertGraph Wazuh V2 clock audit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "audit_id", "campaign_id", "run_id", "created_at_utc", "policy", "measurements", "accepted", "rejection_reasons"],
+  "properties": {
+    "schema_version": {"const": "alertgraph-clock-audit/2.0"},
+    "audit_id": {"type": "string", "minLength": 1},
+    "campaign_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_abs_offset_ms", "max_uncertainty_ms", "require_synchronized", "required_roles"],
+      "properties": {
+        "max_abs_offset_ms": {"type": "number", "minimum": 0},
+        "max_uncertainty_ms": {"type": "number", "minimum": 0},
+        "require_synchronized": {"type": "boolean"},
+        "required_roles": {"type": "array", "uniqueItems": true, "items": {"enum": ["controller", "wazuh-manager", "linux-target", "windows-target"]}}
+      }
+    },
+    "measurements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["role", "host", "request_started_at_utc", "request_ended_at_utc", "remote_time_utc", "offset_ms", "uncertainty_ms", "synchronized", "sync_source", "accepted", "reasons"],
+        "properties": {
+          "role": {"enum": ["controller", "wazuh-manager", "linux-target", "windows-target"]},
+          "host": {"type": "string", "minLength": 1},
+          "request_started_at_utc": {"type": "string", "format": "date-time"},
+          "request_ended_at_utc": {"type": "string", "format": "date-time"},
+          "remote_time_utc": {"type": "string", "format": "date-time"},
+          "offset_ms": {"type": "number"},
+          "uncertainty_ms": {"type": "number", "minimum": 0},
+          "synchronized": {"type": ["boolean", "null"]},
+          "sync_source": {"type": "string", "minLength": 1},
+          "selection_policy": {"type": "string", "minLength": 1},
+          "selected_sample_index": {"type": "integer", "minimum": 0},
+          "consistent_offset_interval_ms": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "required": ["lower", "upper"],
+            "properties": {"lower": {"type": "number"}, "upper": {"type": "number"}}
+          },
+          "samples": {
+            "type": "array", "minItems": 1,
+            "items": {
+              "type": "object", "additionalProperties": false,
+              "required": ["sample_index", "request_started_at_utc", "request_ended_at_utc", "remote_time_utc", "rtt_ms", "offset_ms", "uncertainty_ms"],
+              "properties": {
+                "sample_index": {"type": "integer", "minimum": 0},
+                "request_started_at_utc": {"type": "string", "format": "date-time"},
+                "request_ended_at_utc": {"type": "string", "format": "date-time"},
+                "remote_time_utc": {"type": "string", "format": "date-time"},
+                "rtt_ms": {"type": "number", "minimum": 0},
+                "offset_ms": {"type": "number"},
+                "uncertainty_ms": {"type": "number", "minimum": 0}
+              }
+            }
+          },
+          "accepted": {"type": "boolean"},
+          "reasons": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "accepted": {"type": "boolean"},
+    "rejection_reasons": {"type": "array", "items": {"type": "string"}}
+  }
+}
