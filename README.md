@@ -225,3 +225,12 @@ python -m unittest discover -s lab/dataset_v2 -p "test_*.py"
 Ce projet est destiné à la recherche, à l'enseignement et aux laboratoires de
 cybersécurité autorisés. Les scripts de simulation ne doivent pas être utilisés
 contre des systèmes tiers ou sans permission explicite.
+
+
+## Current V2 implementation
+
+Strict provenance/cleanup, experimental C1/C2 compression and conservative
+candidates, exact sudo-message parsing, and Windows/Sysmon parent-child pilot
+tooling are available. See [the public V2 guide](docs/v2-public-implementation.md).
+Operational lab data and private campaign protocols are excluded. ML V2 remains
+untrained and `training_ready` remains `false`.

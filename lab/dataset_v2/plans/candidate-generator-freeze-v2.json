@@ -1,0 +1,53 @@
+{
+  "schema_version": "alertgraph-candidate-generator-freeze/2.0",
+  "frozen_for": "prospective-development-validation-before-label-observation",
+  "baseline": {
+    "variant_id": "v2-0-historical",
+    "collapse_seconds": 2.0,
+    "local_window_seconds": 60.0,
+    "max_candidates_per_alert": 50,
+    "max_causal_bridges_per_alert": 5,
+    "causal_max_age_seconds": null,
+    "shared_entity_required": true,
+    "candidate_labels_used": false
+  },
+  "evaluated_candidate": {
+    "variant_id": "v2-3-raw-bundles-4-cap-3",
+    "base_variant": "v2-0-historical",
+    "long_bridge_max_age_seconds": 180.0,
+    "minimum_raw_evidence_bundles": 4,
+    "maximum_long_bridges_per_later_alert": 3,
+    "raw_bundles": [
+      "operational-entity-continuity",
+      "network-direction-continuity",
+      "semantic-continuity",
+      "behavioral-compatibility",
+      "same-observation-channel",
+      "ssh-to-session-or-fim-chain",
+      "service-or-protocol-continuity"
+    ],
+    "known_independence_limitation": "operational entity, network direction and service may derive from overlapping Wazuh fields",
+    "candidate_labels_used": false,
+    "deployment_allowed": false
+  },
+  "distinct_unevaluated_family_variant": {
+    "variant_id": "v2-3-family-corroborated-not-yet-evaluated",
+    "status": "design-only-distinct-from-evaluated-v2-3",
+    "families": {
+      "infrastructure_identity": [
+        "operational-entity-continuity",
+        "network-direction-continuity"
+      ],
+      "semantic": ["semantic-continuity"],
+      "behavioral": ["behavioral-compatibility"],
+      "telemetry_channel": [
+        "same-observation-channel",
+        "ssh-to-session-or-fim-chain",
+        "service-or-protocol-continuity"
+      ]
+    },
+    "selection_parameters": null,
+    "must_not_replace_evaluated_candidate_silently": true
+  },
+  "training_ready": false
+}

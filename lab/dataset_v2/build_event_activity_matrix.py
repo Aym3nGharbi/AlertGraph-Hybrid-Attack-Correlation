@@ -17,6 +17,7 @@ from typing import Mapping
 from .io_utils import canonical_json_bytes, load_json, sha256_bytes, sha256_file, utc_now, write_new_bytes, write_new_json
 from .membership_supervision import validate_event_activity_matrix
 from .prepare_campaign import verify_campaign_reservation
+from .boot_id import canonical_boot_id
 
 
 OUTPUT_DIR = "event-activity-matrix-v2"
@@ -51,7 +52,7 @@ def _linux_memberships(events, activities, receipts):
         activity_id = str(activity["activity_id"])
         result = receipts[activity_id]["steps"][0]["result"]
         port = str(result["target_ssh_connection"]["source_port"])
-        boot = str(result.get("target_boot_id") or "boot-unavailable")
+        boot = canonical_boot_id(result.get("target_boot_id"))
         anchors = []
         for event in events:
             rule = event.get("rule") if isinstance(event.get("rule"), Mapping) else {}

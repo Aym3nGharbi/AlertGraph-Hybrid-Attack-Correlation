@@ -1,0 +1,66 @@
+{
+  "scenario_template": "windows-parent-child-observability-v2",
+  "machines": [
+    {
+      "role": "controller",
+      "host": "example-controller"
+    },
+    {
+      "role": "wazuh-manager",
+      "host": "192.0.2.10"
+    },
+    {
+      "role": "windows-target",
+      "host": "192.0.2.30",
+      "agent_name": "windows-agent"
+    }
+  ],
+  "activities": [
+    {
+      "key": "benign-parent-child",
+      "class": "benign",
+      "benign_activity_key": "example-benign",
+      "platform": "windows",
+      "activity_name": "Synthetic read-only parent-child reservation example",
+      "command_template": "fixed gated PowerShell parent and child; read username only",
+      "target_hosts": [
+        "192.0.2.30"
+      ],
+      "target_agents": [
+        "windows-agent"
+      ],
+      "maximum_duration_seconds": 20,
+      "proof_requirements": [
+        "independent-kernel-birth",
+        "original-Sysmon-XML-and-EVTX",
+        "exact-Wazuh-copy",
+        "confirmed-cleanup"
+      ]
+    }
+  ],
+  "temporal_policy": {
+    "max_abs_offset_ms": 1000,
+    "max_uncertainty_ms": 500,
+    "require_synchronized": true,
+    "required_roles": [
+      "controller",
+      "wazuh-manager",
+      "windows-target"
+    ]
+  },
+  "supervision_policy": {
+    "weak_labels_allowed": false,
+    "time_or_host_alone_is_sufficient": false
+  },
+  "safety_policy": {
+    "isolated_lab_only": true,
+    "execution_authorized": false,
+    "automatic_retry": false
+  },
+  "pair_label_policy": {
+    "benign_benign_training_export": false
+  },
+  "candidate_policy": {
+    "frozen_generators_unchanged": true
+  }
+}

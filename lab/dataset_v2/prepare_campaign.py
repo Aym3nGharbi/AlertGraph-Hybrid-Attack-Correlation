@@ -102,6 +102,9 @@ def _prepare_activities(
                 "activity_role": item.get("activity_role"),
                 "expected_wazuh_rules": list(item.get("expected_wazuh_rules", [])),
                 "proof_requirements": list(item.get("proof_requirements", [])),
+                "execution_order": item.get("execution_order"),
+                "planned_offset_seconds": item.get("planned_offset_seconds"),
+                "maximum_duration_seconds": item.get("maximum_duration_seconds"),
             }
         )
     return prepared
@@ -210,6 +213,16 @@ def prepare_campaign(
             "supervision_policy": scenario_plan.get("supervision_policy"),
             "pair_label_policy": scenario_plan.get("pair_label_policy"),
             "safety_policy": scenario_plan.get("safety_policy"),
+            "candidate_policy": scenario_plan.get("candidate_policy"),
+            "execution_schedule": scenario_plan.get("execution_schedule"),
+            "evidence_collection_policy": scenario_plan.get("evidence_collection_policy"),
+            "fim_pilot_policy": scenario_plan.get("fim_pilot_policy"),
+            "fim_activity_policies": scenario_plan.get("fim_activity_policies"),
+            "runner_isolation_policy": scenario_plan.get("runner_isolation_policy"),
+            "correlated_rule_policy": scenario_plan.get("correlated_rule_policy"),
+            "feature_normalization_policy": scenario_plan.get("feature_normalization_policy"),
+            "production_variant": scenario_plan.get("production_variant"),
+            "sudo_observability_policy": scenario_plan.get("sudo_observability_policy"),
         }
         plan_hash = sha256_bytes(canonical_json_bytes(plan_document))
         manifest = {

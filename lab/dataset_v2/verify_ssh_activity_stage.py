@@ -100,11 +100,12 @@ def verify_stage(
     )
     journal_payload = _remote(base + [f"{target_user}@{target_host}", journal_command])
     journal = [json.loads(x) for x in journal_payload.splitlines() if x.strip()]
-    boot_ids = {str(x.get("_BOOT_ID")) for x in journal}
+    from .boot_id import canonical_boot_id, same_boot_id
+    boot_ids = {canonical_boot_id(x.get("_BOOT_ID")) for x in journal}
     if len(boot_ids) != 1 or any(str(x.get("_PID")) != pid for x in journal):
         raise ValueError("Identité journald absente ou ambiguë")
     boot_id = next(iter(boot_ids))
-    if result.get("target_boot_id") and str(result["target_boot_id"]).replace("-", "") != boot_id:
+    if result.get("target_boot_id") and not same_boot_id(result["target_boot_id"], boot_id):
         raise ValueError("BootId reçu/journald incohérent")
     journal_messages = {str(x.get("MESSAGE") or "") for x in journal}
     if any(not any(message and message in str(event.get("full_log") or "") for message in journal_messages)

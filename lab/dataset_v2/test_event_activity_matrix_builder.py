@@ -15,8 +15,8 @@ class ExactActivitySeparationTests(unittest.TestCase):
             {"activity_id": "b", "marker_id": "mb"},
         ]
         receipts = {
-            "a": {"steps": [{"result": {"target_boot_id": "boot", "target_ssh_connection": {"source_port": 50001}}}]},
-            "b": {"steps": [{"result": {"target_boot_id": "boot", "target_ssh_connection": {"source_port": 50002}}}]},
+            "a": {"steps": [{"result": {"target_boot_id": "34018147-4db4-4fbe-9bc7-1cc3e18fc9be", "target_ssh_connection": {"source_port": 50001}}}]},
+            "b": {"steps": [{"result": {"target_boot_id": "340181474db44fbe9bc71cc3e18fc9be", "target_ssh_connection": {"source_port": 50002}}}]},
         }
         events = [
             {"id": "a-auth", "rule": {"id": "5715"}, "data": {"srcport": "50001"}, "full_log": "sshd[100]: Accepted"},

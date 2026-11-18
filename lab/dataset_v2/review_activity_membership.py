@@ -13,6 +13,7 @@ from .io_utils import canonical_json_bytes, load_json, sha256_bytes, sha256_file
 from .membership_supervision import MEMBER, UNRESOLVED, validate_membership_decisions
 from .prepare_campaign import verify_campaign_reservation
 from .validators import validate_bundle
+from .boot_id import canonical_boot_id
 
 
 REVIEW_DIR = "membership-review-evidence-graph-v2"
@@ -87,7 +88,7 @@ def _review_ssh(campaign_dir: Path, manifest: Mapping[str, object], bundle: Mapp
     journal_path = next((campaign_dir / "supplementary").glob("linux-journal-pid-*.jsonl"))
     journal_lines = journal_path.read_bytes().splitlines(keepends=True)
     journal = [(json.loads(line), line) for line in journal_lines]
-    boot_ids = {str(x.get("_BOOT_ID")) for x, _ in journal}; pids = {str(x.get("_PID")) for x, _ in journal}
+    boot_ids = {canonical_boot_id(x.get("_BOOT_ID")) for x, _ in journal}; pids = {str(x.get("_PID")) for x, _ in journal}
     if len(boot_ids) != 1 or len(pids) != 1:
         raise ValueError("La chaîne journald ne possède pas une identité de processus unique")
     boot_id, pid = next(iter(boot_ids)), next(iter(pids))

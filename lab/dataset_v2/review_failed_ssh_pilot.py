@@ -49,7 +49,8 @@ def review_failed_ssh_pilot(campaign_dir: str | Path, *, activity_key: str, pid:
     events = [json.loads(x) for x in raw_lines]
     journal_path = campaign_dir / "supplementary" / f"linux-journal-pid-{pid}.jsonl"
     journal_lines = journal_path.read_bytes().splitlines(); journal = [json.loads(x) for x in journal_lines]
-    boot_ids = {str(x.get("_BOOT_ID")) for x in journal}; journal_pids = {str(x.get("_PID")) for x in journal}
+    from .boot_id import canonical_boot_id
+    boot_ids = {canonical_boot_id(x.get("_BOOT_ID")) for x in journal}; journal_pids = {str(x.get("_PID")) for x in journal}
     if len(boot_ids) != 1 or journal_pids != {pid}:
         raise ValueError("Identité journald non unique")
     boot_id = next(iter(boot_ids)); now = utc_now()
